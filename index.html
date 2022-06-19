@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body{
+            background-color: rgb(29, 29, 29);
+            color: ivory;
+
+        }
+        *{
+            font-family: 'Titillium Web', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #produtos{
+            max-width: 120000px;
+            margin-left: 8%;
+            padding:0 2%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #carrinho{
+            max-width: 900px;
+            margin:0 auto;
+            padding:0 2%;
+            display: block;
+        }
+        .produto-single{
+            width: 32;
+            margin-right: 1%;
+            border:1px solid #ccc;
+            margin-top:20px ;
+            margin-bottom:20px ;
+        }
+        .produto-single img{
+            max-width: 100%;
+        }
+        .produto-single p{
+            text-align: center;
+            font-size: 16px;
+            padding: 10px;
+        }
+        .produto-single a{
+            text-decoration: none;
+            color: white;
+            background-color: #5fb382;
+            text-align: center;
+            display: block;
+            padding:4px 0 ;
+            font-size: 20px ;
+        }
+        h2{
+            background-color: #fa1e4e;
+            padding:10px 0;
+            text-align: center;
+            color: rgb(19, 19, 19);
+        }
+        .info-single-checkout{
+            border-bottom:2px dotted;
+            padding:5px 0; 
+        }
+        @media screen and(max-width: 768px){
+            .produto-single{
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+
+    </style>
+
+
+    <h2>Vitrine</h2>
+    <div id="produtos">
+    </div><!--produtos-->
+    <h2>Carrinho</h2>
+    <div id="carrinho">
+
+    </div><!--carrinho-->
+    <script>
+        const items =[
+        {
+            id: 0,
+            nome: 'Jujutsu kaisen vol.1',
+            img: 'jujutsukaisen.jpg',
+            quantidade: 0
+        },
+        {
+            id: 1,
+            nome: 'One piece vol.1',
+            img: 'op.jpg',
+            quantidade: 0
+        },
+        {
+            id: 2,
+            nome: 'Vagabond vol.1',
+            img: 'vagabond.jpg',
+            quantidade: 0
+        },
+        {
+            id: 3,
+            nome: 'Black clover vol.27',
+            img: 'BC27.jpg',
+            quantidade: 0
+        },
+        {
+            id: 4,
+            nome: 'One punch man vol.1',
+            img: 'OPM.jpg',
+            quantidade: 0
+        },
+        
+
+    ]
+    inicializarloja = () => {
+        var containerprodutos = document.getElementById('produtos');
+        items.map((val)=>{ 
+                containerprodutos.innerHTML+= `
+
+                <div class= "produto-single">
+                <img src="`+val.img+`" />
+                <p>`+val.nome+`</p>
+                <a key="`+val.id+`" href="#"> adicionar ao carrinho!</a>
+            </div>
+
+
+            `;
+        })
+    }
+    inicializarloja();
+
+
+    atualizarcarrinho = () => {
+        var containercarrinho = document.getElementById('carrinho');
+        containercarrinho.innerHTML = ""
+        items.map((val)=>{ 
+            if(val.quantidade > 0){
+            containercarrinho.innerHTML+= `
+            <div class="info-single-checkout">
+            <p style ="float:left;"> Produto:`+val.nome+` </p>
+            <p style ="float:right;"> Quantidade:`+val.quantidade+` </p>
+            <div style ="clear:both;"></div>
+            </div>
+
+
+            `;}
+        })
+    }
+
+    var links = document.getElementsByTagName('a');
+
+    for(var i = 0; i < links.length; i++){
+        links[i].addEventListener("click",function(){
+            let key=this.getAttribute('key');
+            items[key].quantidade++;
+            atualizarcarrinho();
+            return false;
+        })
+        
+    }
+
+
+    </script>
+</body>
+</html>
